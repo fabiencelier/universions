@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="universions",
-    version="0.1.0-dev01",
+    version="0.1.0-dev021",
     author="Fabien Celier",
     author_email="fabien.celier@polytechnique.org",
     packages=["universions", "universions.java"],
@@ -10,5 +10,11 @@ setup(
     keywords=["version", "versions", "universal"],
     license="LICENSE",
     description="Get version of other tools.",
-    install_requires=["Python >= 3.7"],
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3.7",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.7",
 )
