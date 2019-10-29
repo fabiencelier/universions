@@ -2,7 +2,7 @@
 
 Python library to get the version of other tools
 
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)  
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/universions.svg)](https://pypi.python.org/pypi/universions/)  
 [![PyPI version](https://badge.fury.io/py/universions.svg)](https://badge.fury.io/py/universions)
 
 ## Install
