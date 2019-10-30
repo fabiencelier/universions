@@ -1,14 +1,14 @@
 """Module to get the Java version."""
 
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
-from ..version import Version
+from universions.version import Version
 
 JAVA_HOME_VAR = "JAVA_HOME"
 
 
-def get_java_versions(java_path: Optional[Path, str] = None) -> Version:
+def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Version:
     """Get the Java versions.
 
     Args:
