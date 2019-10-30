@@ -1,0 +1,14 @@
+name: Testing
+on: [push]
+
+jobs:
+  build:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install pipenv
+        run: pip3 install pipenv
+      - name: Install python dependencies
+        run: pipenv install --dev
+      - name: Run all tests
+        run: pipenv run pytest .
