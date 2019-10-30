@@ -15,7 +15,9 @@ jobs:
         run: sudo pip3 install pipenv
       - name: Install python dependencies
         run: pipenv install --dev
-      - name: Run all tests
+      - name: linting with pylint
+        run: pipenv run pylint universions
+      - name: Run all tests with pytest
         run: pipenv run pytest .
       - name: Install javascript dependencies
         run: yarn install

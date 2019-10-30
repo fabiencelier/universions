@@ -1,6 +1,6 @@
 """Unique format for all the versions."""
 
-from typing import Tuple, Optional, NamedTuple
+from typing import Optional, NamedTuple
 
 
 class Version(NamedTuple):
@@ -9,8 +9,4 @@ class Version(NamedTuple):
     minor: Optional[int] = None
     micro: Optional[int] = None
     releaselevel: Optional[str] = None
-    serial: Optional[int]= None
-
-
-        
-        
+    serial: Optional[int] = None

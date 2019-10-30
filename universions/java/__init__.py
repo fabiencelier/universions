@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from typing import Optional, Union
+from os import environ
 
 from universions.version import Version
 
@@ -17,11 +18,9 @@ def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Optional[
                   If JAVA_HOME is not defined either it tries only "java".
     Returns:
         The Java version.
-    
+
     """
     if java_path is None:
-        from os import environ
-
         if JAVA_HOME_VAR in environ:
             java_path = Path(environ[JAVA_HOME_VAR]) / "bin" / "java"
         else:
@@ -45,7 +44,7 @@ def _get_command_result(java_path: str) -> str:
         The result of the command.
 
     """
-    # TODO
+    print(java_path)
     return "TODO"
 
 
@@ -57,18 +56,18 @@ def _parse_version(version_string: str) -> Version:
     Returns:
         The Java version.
     """
-    # TODO
+    print(version_string)
     return Version(1)
 
 
 def _parse_version_string(cmd_result: str) -> str:
     """Parse the command result into a string.
-    
+
     Args:
         cmd_result: The result ofthe command to get the version.
     Results:
         The string of the version such as "1.8.0_151"
-        
+
     """
     lines = cmd_result.splitlines()
     print(lines)
