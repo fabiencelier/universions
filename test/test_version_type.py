@@ -2,8 +2,9 @@
 
 from universions import Version
 
+
 def test_define_basic_version():
-    version = Version(1,0,2)
+    version = Version(1, 0, 2)
     print(version)
     assert version.major == 1
     assert version.minor == 0

@@ -5,6 +5,7 @@ from typing import Optional, NamedTuple
 
 class Version(NamedTuple):
     """Class containing all the version info."""
+
     major: int
     minor: Optional[int] = None
     micro: Optional[int] = None

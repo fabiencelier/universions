@@ -4,8 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-universion = {editable = true, path = "."}
-black = "*"
+universion = {path = ".",editable = true}
+black = "==19.3b0"
 pylint = "*"
 pytest = "*"
 setuptools = "*"

@@ -9,7 +9,9 @@ from universions.version import Version
 JAVA_HOME_VAR = "JAVA_HOME"
 
 
-def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
+def get_java_versions(
+    java_path: Optional[Union[Path, str]] = None
+) -> Optional[Version]:
     """Get the Java versions.
 
     Args:

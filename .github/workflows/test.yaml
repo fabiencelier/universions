@@ -15,11 +15,13 @@ jobs:
         run: sudo pip3 install pipenv
       - name: Install python dependencies
         run: pipenv install --dev
+      - name: Formatting check with black
+        run: pipenv run black . --check
       - name: linting with pylint
         run: pipenv run pylint universions
       - name: Run all tests with pytest
         run: pipenv run pytest .
       - name: Install javascript dependencies
         run: yarn install
-      - name: typing check with pyright
+      - name: Typing check with pyright
         run: yarn run pyright universions
