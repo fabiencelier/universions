@@ -8,7 +8,7 @@ from universions.version import Version
 JAVA_HOME_VAR = "JAVA_HOME"
 
 
-def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Version:
+def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
     """Get the Java versions.
 
     Args:
@@ -19,7 +19,6 @@ def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Version:
         The Java version.
     
     """
-
     if java_path is None:
         from os import environ
 
@@ -27,6 +26,8 @@ def get_java_versions(java_path: Optional[Union[Path, str]] = None) -> Version:
             java_path = Path(environ[JAVA_HOME_VAR]) / "bin" / "java"
         else:
             java_path = "java"
+    if isinstance(java_path, Path):
+        java_path = str(java_path.absolute())
     try:
         cmd_result = _get_command_result(java_path)
         version_string = _parse_version_string(cmd_result)
@@ -57,7 +58,7 @@ def _parse_version(version_string: str) -> Version:
         The Java version.
     """
     # TODO
-    return Version()
+    return Version(1)
 
 
 def _parse_version_string(cmd_result: str) -> str:

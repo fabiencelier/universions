@@ -6,9 +6,18 @@ jobs:
     name: Testing
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+          architecture: "x64" # (x64 or x86)
       - name: Install pipenv
-        run: pip3 install pipenv
+        run: sudo pip3 install pipenv
       - name: Install python dependencies
         run: pipenv install --dev
       - name: Run all tests
         run: pipenv run pytest .
+      - name: Install javascript dependencies
+        run: yarn install
+      - name: typing check with pyright
+        run: yarn run pyright universions
