@@ -1,3 +1,5 @@
+set -e # Stop at the first failure
+
 # Black formatting
 pipenv run black . --check
 
