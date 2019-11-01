@@ -1,24 +1,12 @@
 """Main file to call universions from the CLI."""
 
 import argparse
-import os
-import sys
 
 import universions.java as uj
 import universions.node as un
 
-TOOLS = {
-    "java": uj.get_java_versions,
-    "node": un.get_node_versions
-}
+TOOLS = {"java": uj.get_java_versions, "node": un.get_node_versions}
 
-# def print_supported_tools(output=sys.stdout):
-#     print(
-#         """
-# Supported tools:
-#  - %s
-# """ % ('\n - '.join(TOOLS.keys())),
-#         file=output)
 
 def parse_args():
     """Parses the arguments of the program."""
@@ -26,19 +14,20 @@ def parse_args():
     parser.add_argument(
         "tool",
         help="Select the tool whose version is wanted",
-        choices=list(TOOLS.keys()))
+        choices=list(TOOLS.keys()),
+    )
     return parser.parse_args()
+
 
 def main():
     """Main function to be run by the CLI tool."""
-    args = parse_args() # Skip the name of the program
+    args = parse_args()
 
     # if len(args) == 0:
     #     print("No action provided", file=sys.stderr)
     #     print_help(sys.stderr)
     #     return 1
 
-    # TODO do the actual dispatch
     tool_name = args.tool
     get_version = TOOLS.get(tool_name)
 
@@ -50,6 +39,7 @@ def main():
     version = get_version()
     print(version)
     return 0
+
 
 if __name__ == "__main__":
     main()
