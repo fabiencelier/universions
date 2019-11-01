@@ -1,6 +1,7 @@
 # Python
 dist
 universions.egg-info
+docs/build
 
 # Javascript
 node_modules
