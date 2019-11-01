@@ -9,18 +9,21 @@ on:
 
 jobs:
   build:
-    name: Testing
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8"]
+    name: Testing - Python ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:
-          python-version: "3.7"
+          python-version: ${{ matrix.python-version }}
           architecture: "x64" # (x64 or x86)
       - name: Install pipenv
         run: sudo pip3 install pipenv
       - name: Install python dependencies
-        run: pipenv install --dev
+        run: pipenv install --dev --python ${{ matrix.python-version }}
       - name: Formatting check with black
         run: pipenv run black . --check
       - name: linting with pylint
