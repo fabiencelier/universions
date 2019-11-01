@@ -32,7 +32,7 @@ def get_java_versions(
     try:
         cmd_result = _get_command_result(java_path)
         version_string = _parse_version_string(cmd_result)
-        version = _parse_version(version_string)
+        return _parse_version(version_string)
     except Exception as exe:
         raise Exception("Could not get the Java version.", exe)
 
