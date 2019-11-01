@@ -11,12 +11,23 @@ def get_long_description():
         return file.read()
 
 
+def get_package_version():
+    """Read the version of the package.
+    See https://packaging.python.org/guides/single-sourcing-package-version
+    """
+    version_exports = {}
+    file_directory = path.abspath(path.dirname(__file__))
+    with open(path.join(file_directory, "universions", "_version.py")) as file:
+        exec(file.read(), version_exports)  # pylint: disable=exec-used
+    return version_exports["VERSION"]
+
+
 setup(
     name="universions",
-    version="0.1.0-dev022",
+    version=get_package_version(),
     author="Fabien Celier",
     author_email="fabien.celier@polytechnique.org",
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(exclude=["test"]),
     url="https://github.com/fabiencelier/universions",
     keywords=["version", "versions", "universal"],
     license="LICENSE.txt",
