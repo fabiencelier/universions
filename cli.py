@@ -16,8 +16,22 @@ def parse_args():
         help="Select the tool whose version is wanted",
         choices=list(TOOLS.keys()),
     )
+    parser.add_argument(
+        '-v', "--verbosity",
+        help="Configures the verbosity level of the printed version",
+        action='count',
+        default=0,
+    )
     return parser.parse_args()
 
+
+def print_version(version, verbosity):
+    """Converts the version into the string matching the verbosity level."""
+    if verbosity == 0:
+        return f"{version.major}.{version.minor}"
+    if 1 <= verbosity < 3:
+        return f"{version.major}.{version.minor}.{version.patch}"
+    return str(version)
 
 def main():
     """Main function to be run by the CLI tool."""
@@ -26,7 +40,7 @@ def main():
     tool_name = args.tool
     get_version = TOOLS.get(tool_name)
     version = get_version()
-    print(version)
+    print(print_version(version, args.verbosity))
 
     return 0
 
