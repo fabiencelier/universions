@@ -4,3 +4,7 @@ universions.egg-info
 
 # Javascript
 node_modules
+
+# Editors
+.vscode
+.venv
