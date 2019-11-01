@@ -1,0 +1,20 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Continuous deployment
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+          architecture: "x64"
+      - name: Deploy to Pypi
+        env:
+          - TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        run: python3 scripts/release.py
