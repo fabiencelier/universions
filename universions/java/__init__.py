@@ -1,17 +1,41 @@
 """Module to get the Java version."""
 
+import re
+
 from pathlib import Path
 from typing import Optional, Union
 from os import environ
 
+from universions._exec import exec_command
+from universions.error import InvalidVersionFormatError
 from universions.version import Version
 
 JAVA_HOME_VAR = "JAVA_HOME"
 
+_JAVA_REGEX = re.compile(
+    r"""
+        ^
+        (?P<major>(?:0|[1-9][0-9]*))
+        (
+            \.(?P<minor>(?:0|[1-9][0-9]*))
+        )?
+        (
+            \.(?P<patch>(?:0|[1-9][0-9]*))
+        )?
+        (\-(?P<prerelease>
+            (?:0|[1-9A-Za-z-][0-9A-Za-z-]*)
+            (\.(?:0|[1-9A-Za-z-][0-9A-Za-z-]*))*
+        ))?
+        (\_(?P<legacy_patch>
+            [0-9]+
+        ))?
+        $
+        """,
+    re.VERBOSE,
+)
 
-def get_java_versions(
-    java_path: Optional[Union[Path, str]] = None
-) -> Optional[Version]:
+
+def get_java_version(java_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
     """Get the Java versions.
 
     Args:
@@ -46,20 +70,40 @@ def _get_command_result(java_path: str) -> str:
         The result of the command.
 
     """
-    print(java_path)
-    return "TODO"
+    return exec_command([java_path, "-version"], use_stderr=True)
 
 
 def _parse_version(version_string: str) -> Version:
     """Parse the version string to return a version.
+
+    Supported versions strings include :
+      - 1.8.0_151
+      - 11.0.2
+      - 14-ea
 
     Args:
         version_string: The version string such as "1.8.0_151"
     Returns:
         The Java version.
     """
-    print(version_string)
-    return Version(1)
+    #  First split the prerelease number if any :
+    match = _JAVA_REGEX.match(version_string)
+    if match is None:
+        raise InvalidVersionFormatError(
+            version_string, "It is not valid Java version string."
+        )
+
+    parts = match.groupdict()
+    major = int(parts["major"])
+    minor = int(parts["minor"]) if "minor" in parts else None
+    if "legacy_patch" in parts:
+        patch = int(parts["legacy_patch"])
+    elif "patch" in parts:
+        patch = int(parts["patch"])
+    else:
+        patch = None
+    prerelease = parts["prerelease"] if "prerelease" in parts else None
+    return Version(major, minor, patch, prerelease, None)
 
 
 def _parse_version_string(cmd_result: str) -> str:
@@ -72,9 +116,7 @@ def _parse_version_string(cmd_result: str) -> str:
 
     """
     lines = cmd_result.splitlines()
-    print(lines)
     split_lines = [line.split(" ") for line in lines]
-    print(split_lines)
     version_line = [
         line for line in split_lines if len(line) > 0 and line[1] == "version"
     ][0]

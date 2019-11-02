@@ -4,6 +4,7 @@ import subprocess
 from typing import Optional, Union
 from pathlib import Path
 from universions import Version, parse_semver
+from universions._exec import exec_command
 
 
 def get_node_versions(
@@ -19,8 +20,5 @@ def get_node_versions(
     """
     if node_path is None:
         node_path = "node"
-    if isinstance(node_path, Path):
-        node_path = str(node_path.absolute())
-    version_string = subprocess.check_output([node_path, "--version"])
-    stripped = str(version_string, encoding="utf-8").strip()
-    return parse_semver(stripped, remove_initial_v=True)
+    version_string = exec_command([node_path, "--version"])
+    return parse_semver(version_string, remove_initial_v=True)
