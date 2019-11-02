@@ -13,7 +13,6 @@ update_version()
 def package():
     """Package the library."""
     to_delete = str(PROJECT_DIR / "dist" / "*")
-    print(to_delete)
     subprocess.check_output(["rm", to_delete, "--force"])
     subprocess.check_output(["pipenv", "run", "python", "setup.py", "sdist"])
 
