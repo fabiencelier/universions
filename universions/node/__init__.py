@@ -22,5 +22,5 @@ def get_node_versions(
     if isinstance(node_path, Path):
         node_path = str(node_path.absolute())
     version_string = subprocess.check_output([node_path, "--version"])
-    stripped = str(version_string, encoding="utf-8").lstrip("v").rstrip()
-    return parse_semver(stripped)
+    stripped = str(version_string, encoding="utf-8").strip()
+    return parse_semver(stripped, remove_initial_v=True)
