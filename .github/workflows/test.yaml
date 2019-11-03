@@ -9,19 +9,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]
-    name: Testing - Python ${{ matrix.python-version }}
+        os: ["windows-latest", "ubuntu-latest"] # add 'macOS-latest' once support for Python 3.8 is ready
+    runs-on: ${{ matrix.os }}
+    name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
           architecture: "x64" # (x64 or x86)
-      - name: Install pipenv
+      - if: matrix.os == 'ubuntu-latest'
+        name: Install pipenv
         run: sudo pip3 install pipenv
+      - if: matrix.os == 'windows-latest'
+        name: Install pipenv
+        run: pip install pipenv
       - name: Install python dependencies
         run: pipenv install --dev --python ${{ matrix.python-version }}
       - name: Formatting check with black
