@@ -20,5 +20,5 @@ def get_node_versions(
     """
     if node_path is None:
         node_path = "node"
-    version_string = exec_command([node_path, "--version"])
+    version_string = exec_command([node_path, "--version"], use_stderr=True)
     return parse_semver(version_string, remove_initial_v=True)

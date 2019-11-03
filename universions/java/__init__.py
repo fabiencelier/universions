@@ -4,7 +4,7 @@ import re
 
 from pathlib import Path
 from typing import Optional, Union
-from os import environ
+from os import environ, path
 
 from universions._exec import exec_command
 from universions.error import InvalidVersionFormatError
@@ -48,11 +48,11 @@ def get_java_version(java_path: Optional[Union[Path, str]] = None) -> Optional[V
     """
     if java_path is None:
         if JAVA_HOME_VAR in environ:
-            java_path = Path(environ[JAVA_HOME_VAR]) / "bin" / "java"
+            java_path = path.join(environ[JAVA_HOME_VAR], "bin", "java")
         else:
             java_path = "java"
     if isinstance(java_path, Path):
-        java_path = str(java_path.absolute())
+        java_path = str(java_path)
     try:
         cmd_result = _get_command_result(java_path)
         version_string = _parse_version_string(cmd_result)
@@ -95,14 +95,14 @@ def _parse_version(version_string: str) -> Version:
 
     parts = match.groupdict()
     major = int(parts["major"])
-    minor = int(parts["minor"]) if "minor" in parts else None
-    if "legacy_patch" in parts:
+    minor = int(parts["minor"]) if parts["minor"] is not None else None
+    if parts["legacy_patch"] is not None:
         patch = int(parts["legacy_patch"])
-    elif "patch" in parts:
+    elif parts["patch"] is not None:
         patch = int(parts["patch"])
     else:
         patch = None
-    prerelease = parts["prerelease"] if "prerelease" in parts else None
+    prerelease = parts["prerelease"]
     return Version(major, minor, patch, prerelease, None)
 
 

@@ -12,6 +12,7 @@ setuptools = "*"
 twine = "*"
 sphinx = "*"
 sphinx-rtd-theme = "*"
+testfixtures = "*"
 
 [packages]
 
