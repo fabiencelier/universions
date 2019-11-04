@@ -3,7 +3,7 @@
 import subprocess
 from typing import Optional, Union
 from pathlib import Path
-from universions import Version, parse_semver
+from universions.version import Version, parse_semver
 from universions._exec import exec_command
 
 

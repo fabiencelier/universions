@@ -3,7 +3,7 @@
 import argparse
 import pkg_resources
 
-import universions
+from universions.version import parse_semver
 import universions.java as uj
 import universions.node as un
 
@@ -18,11 +18,11 @@ def get_self_version():
     """
     raw_version = pkg_resources.require("universions")[0].version
     version = raw_version.replace(".dev", "-dev")
-    return universions.parse_semver(version)
+    return parse_semver(version)
 
 
 TOOLS = {
-    "java": uj.get_java_versions,
+    "java": uj.get_java_version,
     "node": un.get_node_versions,
     "universions": get_self_version,
 }
