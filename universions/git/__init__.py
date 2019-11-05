@@ -12,8 +12,8 @@ _REGEX = re.compile(
     r"""
       ^
       git\ version
-      \ (?P<version>.+)
-      \ \(.+\)
+      \ (?P<version>[^ ]+)
+      (\ \(.+\))?
       $
     """,
     re.VERBOSE,
