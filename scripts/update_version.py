@@ -4,7 +4,6 @@
 import datetime
 import re
 import subprocess
-
 from os import path
 from pathlib import Path
 

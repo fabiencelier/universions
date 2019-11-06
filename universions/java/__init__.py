@@ -1,10 +1,9 @@
 """Module to get the Java version."""
 
 import re
-
+from os import environ, path
 from pathlib import Path
 from typing import Optional, Union
-from os import environ, path
 
 from universions._exec import exec_command
 from universions.error import InvalidVersionFormatError

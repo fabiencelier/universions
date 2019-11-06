@@ -1,10 +1,9 @@
 """Module to execute a command line and clean it."""
 
 import subprocess
-
 from pathlib import Path
+from subprocess import PIPE, Popen
 from typing import List, Union
-from subprocess import Popen, PIPE
 
 
 def exec_command(
