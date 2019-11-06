@@ -2,3 +2,4 @@
 
 from ._version import VERSION as __version__
 from .version import Version, parse_semver
+from .cli import main as cli
