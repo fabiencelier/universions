@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]
-        os: ["windows-latest", "ubuntu-latest"] # add 'macOS-latest' once support for Python 3.8 is ready
+        os: ["ubuntu-latest"] # add 'macOS-latest' once support for Python 3.8 is ready # add "windows-latest" when possible
     runs-on: ${{ matrix.os }}
     name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:

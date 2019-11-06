@@ -20,7 +20,8 @@ def exec_command(
         The result of the command.
 
     """
-    cmd = " ".join([str(part) for part in parts])
+    #  cmd = " ".join([str(part) for part in parts])
+    cmd = [str(part) for part in parts]
     stderr = subprocess.STDOUT if use_stderr else PIPE
     result_string, _ = Popen(cmd, stdout=PIPE, stderr=stderr).communicate()
     if isinstance(result_string, bytes):
