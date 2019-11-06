@@ -1,7 +1,6 @@
 """Test class with a mocked Popen."""
 
 import pytest
-
 from testfixtures import Replacer
 from testfixtures.popen import MockPopen
 

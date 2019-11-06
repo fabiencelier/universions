@@ -36,6 +36,8 @@ jobs:
         run: pipenv run black . --check
       - name: linting with pylint
         run: pipenv run pylint universions
+      - name: Order imports with isort
+        run: pipenv run isort . --recursive --check-only
       - name: Run all tests with pytest
         run: pipenv run pytest .
       - name: Install javascript dependencies

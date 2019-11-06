@@ -1,7 +1,8 @@
 """Test the semver parser."""
 
 import pytest
-from universions import parse_semver, Version
+
+from universions import Version, parse_semver
 from universions.error import InvalidVersionFormatError
 
 

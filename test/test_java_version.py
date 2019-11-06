@@ -6,8 +6,8 @@ import pytest
 
 from universions import Version
 from universions.java import _parse_version_string, get_java_version
-from .mock_popen import BasicMockedPopen
 
+from .mock_popen import BasicMockedPopen
 
 JAVA_5 = (
     b'java version "1.5.0_29"\n'

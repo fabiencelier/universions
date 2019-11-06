@@ -1,12 +1,13 @@
 """Test the parsing of node version."""
 
 from pathlib import Path
+
 import pytest
 
 from universions import Version
 from universions.node import get_node_versions
-from .mock_popen import BasicMockedPopen
 
+from .mock_popen import BasicMockedPopen
 
 ARGON = b"v4.9.1\n"
 BORON = b"v6.17.1\n"

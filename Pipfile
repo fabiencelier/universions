@@ -13,6 +13,7 @@ twine = "*"
 sphinx = "*"
 sphinx-rtd-theme = "*"
 testfixtures = "*"
+isort = "*"
 
 [packages]
 

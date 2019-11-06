@@ -1,11 +1,12 @@
 """Main file to call universions from the CLI."""
 
 import argparse
+
 import pkg_resources
 
-from universions.version import parse_semver
 import universions.java as uj
 import universions.node as un
+from universions.version import parse_semver
 
 
 def get_self_version():

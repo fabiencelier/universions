@@ -3,6 +3,7 @@
 import subprocess
 from os import path
 from pathlib import Path
+
 from update_version import update_version
 
 PROJECT_DIR = Path(path.abspath(path.dirname(__file__))).parent
