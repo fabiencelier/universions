@@ -22,7 +22,7 @@ def exec_command(
     """
     cmd = " ".join([str(part) for part in parts])
     stderr = subprocess.STDOUT if use_stderr else PIPE
-    result_string, _ = Popen(parts, stdout=PIPE, stderr=stderr).communicate()
+    result_string, _ = Popen(cmd, stdout=PIPE, stderr=stderr).communicate()
     if isinstance(result_string, bytes):
         result_string = str(result_string, encoding="utf-8")
     if clean:
