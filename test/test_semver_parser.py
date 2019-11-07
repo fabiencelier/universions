@@ -1,7 +1,8 @@
 """Test the semver parser."""
 
 import pytest
-from universions import parse_semver, Version
+
+from universions import Version, parse_semver
 from universions.error import InvalidVersionFormatError
 
 
@@ -36,13 +37,13 @@ def test_default_semver_parser_failing_cases(version):
         ("3.10.5", Version(3, 10, 5)),
     ],
 )
-def test_semver_parser_remove_initial_v(version, expected):
+def test_semver_parser_remove_initial_v(version: str, expected: Version):
     """Test the option to remove initial v"""
     assert parse_semver(version, remove_initial_v=True) == expected
 
 
 @pytest.mark.parametrize("version", ["vv1.0.0", "v", "Vv3", "version1.0.0", "v-2.5.2"])
-def test_semver_parser_invalid_initial_v(version):
+def test_semver_parser_invalid_initial_v(version: str):
     """Test the option to remove initial v when the string is invalid"""
     with pytest.raises(InvalidVersionFormatError):
         parse_semver(version, remove_initial_v=True)
