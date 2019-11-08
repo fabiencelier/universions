@@ -1,7 +1,7 @@
 """Unique format for all the versions."""
 
-from typing import Optional, NamedTuple
 import re
+from typing import NamedTuple, Optional
 
 from .error import InvalidVersionFormatError
 

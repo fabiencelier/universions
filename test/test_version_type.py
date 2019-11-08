@@ -5,7 +5,6 @@ from universions import Version
 
 def test_define_basic_version():
     version = Version(1, 0, 2)
-    print(version)
     assert version.major == 1
     assert version.minor == 0
     assert version.patch == 2
@@ -15,7 +14,6 @@ def test_define_basic_version():
 
 def test_major_version():
     version = Version(10)
-    print(version)
     assert version.major == 10
     assert version.minor is None
     assert version.patch is None
@@ -25,7 +23,6 @@ def test_major_version():
 
 def test_major_minor_version():
     version = Version(49, 52)
-    print(version)
     assert version.major == 49
     assert version.minor == 52
     assert version.patch is None
@@ -35,7 +32,6 @@ def test_major_minor_version():
 
 def test_full_version():
     version = Version(49, 52, 0, "rc.5", "eg5f6d")
-    print(version)
     assert version.major == 49
     assert version.minor == 52
     assert version.patch == 0

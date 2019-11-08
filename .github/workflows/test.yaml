@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]
-        os: ["windows-latest", "ubuntu-latest"] # add 'macOS-latest' once support for Python 3.8 is ready
+        os: ["ubuntu-latest", "macOS-latest"] # add "windows-latest" when possible
     runs-on: ${{ matrix.os }}
     name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:
@@ -22,17 +22,22 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: "x64" # (x64 or x86)
       - if: matrix.os == 'ubuntu-latest'
-        name: Install pipenv
+        name: Install pipenv Linux
         run: sudo pip3 install pipenv
       - if: matrix.os == 'windows-latest'
-        name: Install pipenv
+        name: Install pipenv Windows
         run: pip install pipenv
+      - if: matrix.os == 'macOS-latest'
+        name: Install pipenv MacOS
+        run: brew install pipenv
       - name: Install python dependencies
         run: pipenv install --dev --python ${{ matrix.python-version }}
       - name: Formatting check with black
         run: pipenv run black . --check
       - name: linting with pylint
         run: pipenv run pylint universions
+      - name: Order imports with isort
+        run: pipenv run isort . --recursive --check-only
       - name: Run all tests with pytest
         run: pipenv run pytest .
       - name: Install javascript dependencies

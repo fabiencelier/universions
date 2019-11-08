@@ -1,10 +1,11 @@
 """Module for node versions."""
 
 import subprocess
-from typing import Optional, Union
 from pathlib import Path
-from universions import Version, parse_semver
+from typing import Optional, Union
+
 from universions._exec import exec_command
+from universions.version import Version, parse_semver
 
 
 def get_node_versions(
@@ -20,5 +21,5 @@ def get_node_versions(
     """
     if node_path is None:
         node_path = "node"
-    version_string = exec_command([node_path, "--version"])
+    version_string = exec_command([node_path, "--version"], use_stderr=True)
     return parse_semver(version_string, remove_initial_v=True)
