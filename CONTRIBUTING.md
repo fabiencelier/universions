@@ -7,7 +7,7 @@ Requirements:
 - pipenv
 
 Install python dependencies :
-`pipenv install --dev --python 3.7`
+`pipenv install --dev --python 3.8`
 
 Install yarn dependencies :
 `yarn install`
