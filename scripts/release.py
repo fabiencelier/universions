@@ -1,5 +1,6 @@
 """Release script."""
 
+import argparse
 import subprocess
 from os import path
 from pathlib import Path
@@ -7,8 +8,6 @@ from pathlib import Path
 from update_version import update_version
 
 PROJECT_DIR = Path(path.abspath(path.dirname(__file__))).parent
-
-update_version()
 
 
 def package():
@@ -26,6 +25,17 @@ def upload_to_pypi():
     )
 
 
-if __name__ == "__main__":
+def main():
+    """Main script."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--version", help="Version to release")
+    args = parser.parse_args()
+    version = args.version
+
+    update_version(version)
     package()
     upload_to_pypi()
+
+
+if __name__ == "__main__":
+    main()

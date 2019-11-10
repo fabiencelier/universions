@@ -1,0 +1,27 @@
+on:
+  push:
+    tags:
+      - "*.*.*"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+          architecture: "x64"
+      - name: Set env
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+      - name: Test
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+      - name: Install pipenv
+        run: sudo pip3 install pipenv
+      - name: Install python dependencies
+        run: pipenv install --dev --python 3.8
+      - name: Deploy to Pypi
+        env:
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        run: python3 scripts/release.py --version  ${{ env.RELEASE_VERSION }}
