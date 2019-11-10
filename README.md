@@ -46,5 +46,6 @@ In the command line :
 
 - Java
 - Node
+- Python
 
 Open an issue if you want more !
