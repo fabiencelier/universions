@@ -49,3 +49,4 @@ In the command line :
 - Python
 
 Open an issue if you want more !
+If you want to contribute read the [contributing guide](https://github.com/fabiencelier/universions/blob/master/CONTRIBUTING.md).
