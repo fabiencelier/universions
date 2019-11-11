@@ -46,6 +46,7 @@ In the command line :
 
 - Java
 - Node
+- Pip
 - Python
 
 Open an issue if you want more !

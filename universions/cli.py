@@ -4,6 +4,7 @@ import argparse
 
 from universions.java import get_java_version
 from universions.node import get_node_version
+from universions.pip import get_pip_version
 from universions.python import get_python_version
 from universions.version import parse_semver
 
@@ -20,6 +21,7 @@ def get_self_version() -> Version:
 TOOLS = {
     "java": get_java_version,
     "node": get_node_version,
+    "pip": get_pip_version,
     "python": get_python_version,
     "universions": get_self_version,
 }
