@@ -5,6 +5,8 @@ from pathlib import Path
 from subprocess import PIPE, Popen
 from typing import List, Union
 
+from .error import NotFoundError
+
 
 def exec_command(
     parts: List[Union[str, Path]], clean: bool = True, use_stderr: bool = False
@@ -22,7 +24,10 @@ def exec_command(
     #  cmd = " ".join([str(part) for part in parts])
     cmd = [str(part) for part in parts]
     stderr = subprocess.STDOUT if use_stderr else PIPE
-    result_string, _ = Popen(cmd, stdout=PIPE, stderr=stderr).communicate()
+    try:
+        result_string, _ = Popen(cmd, stdout=PIPE, stderr=stderr).communicate()
+    except FileNotFoundError:
+        raise NotFoundError(f"\"{' '.join(cmd)}\" is not a valid command.")
     if isinstance(result_string, bytes):
         result_string = str(result_string, encoding="utf-8")
     if clean:
