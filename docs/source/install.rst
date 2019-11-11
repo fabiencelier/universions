@@ -4,10 +4,12 @@ Installation guide
 
 With pip
 ^^^^^^^^
+.. code::
 
-pip install universions
+  pip install universions
 
 With conda
 ^^^^^^^^^^
+.. code::
 
-Not available yet.
+  conda install -c conda-forge universions
