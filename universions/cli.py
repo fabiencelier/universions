@@ -35,17 +35,22 @@ def get_args_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "tool",
-        help="Select the tool whose version is wanted",
+        help="select the tool whose version is wanted",
         nargs="?",
         choices=list(TOOLS.keys()),
     )
-    parser.add_argument("--all", action="store_true", help="Display all the tools")
+    parser.add_argument(
+        "-a", "--all", action="store_true", help="display all the tools version"
+    )
     parser.add_argument(
         "-v",
         "--verbosity",
-        help="Configure the verbosity level of the printed version",
+        help="configure the verbosity level of the printed version",
         action="count",
         default=0,
+    )
+    parser.add_argument(
+        "-V", "--version", action="version", version=universions_version
     )
     return parser
 
