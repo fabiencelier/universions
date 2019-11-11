@@ -52,12 +52,9 @@ def get_java_version(java_path: Optional[Union[Path, str]] = None) -> Optional[V
             java_path = "java"
     if isinstance(java_path, Path):
         java_path = str(java_path)
-    try:
-        cmd_result = _get_command_result(java_path)
-        version_string = _parse_version_string(cmd_result)
-        return _parse_version(version_string)
-    except Exception as exe:
-        raise Exception("Could not get the Java version.", exe)
+    cmd_result = _get_command_result(java_path)
+    version_string = _parse_version_string(cmd_result)
+    return _parse_version(version_string)
 
 
 def _get_command_result(java_path: str) -> str:

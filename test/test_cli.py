@@ -27,3 +27,9 @@ def test_cli_universions_verbosity():
     assert str(output, encoding="utf-8").strip() == expected
     output = check_output(["universions", "universions", "-vv"])
     assert str(output, encoding="utf-8").strip() == expected
+
+
+def test_cli_all():
+    """Test the --all flag of the CLI."""
+    output = check_output(["universions", "--all"])
+    assert str(output, encoding="utf-8").startswith("Versions :")
