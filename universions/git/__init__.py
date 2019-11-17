@@ -33,7 +33,6 @@ def _extract_version(output: str) -> ParsingInfo:
       The string representing the version
   """
     match = _REGEX.match(output)
-    print(f"[{output}] {match}")
     if match is None:
         raise InvalidVersionFormatError(output, "Unexpected Git output.")
 
