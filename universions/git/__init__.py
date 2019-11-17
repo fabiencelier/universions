@@ -1,9 +1,10 @@
 """Module for node versions."""
 
-from pathlib import Path
 import re
 import subprocess
-from typing import Optional, Union
+from pathlib import Path
+from typing import Optional, Tuple, Union
+
 from universions._exec import exec_command
 from universions.error import InvalidVersionFormatError
 from universions.version import Version, parse_semver
@@ -20,7 +21,7 @@ _REGEX = re.compile(
     re.VERBOSE,
 )
 
-ParsingInfo = (str, Optional[str], Optional[str])
+ParsingInfo = Tuple[str, Optional[str], Optional[str]]
 
 
 def _extract_version(output: str) -> ParsingInfo:
