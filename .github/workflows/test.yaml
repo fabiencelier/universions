@@ -17,7 +17,6 @@ jobs:
       # From https://stackoverflow.com/a/55310803/3252477 for pipenv
       PIPENV_DIR: $GITHUB_WORKSPACE/.pipenv
       PIP_CACHE_DIR: $PIPENV_DIR/pipcache
-      WORKON_HOME: $PIPENV_DIR/venvs
     runs-on: ${{ matrix.os }}
     name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:
