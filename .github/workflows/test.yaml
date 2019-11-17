@@ -15,8 +15,9 @@ jobs:
         os: ["ubuntu-latest", "macOS-latest"] # add "windows-latest" when possible
     env: 
       # From https://stackoverflow.com/a/55310803/3252477 for pipenv
-      PIP_CACHE_DIR: .pipenv/pipcache
-      WORKON_HOME: .pipenv/venvs
+      PIPENV_DIR: $GITHUB_WORKSPACE/.pipenv
+      PIP_CACHE_DIR: $PIPENV_DIR/pipcache
+      WORKON_HOME: $PIPENV_DIR/venvs
     runs-on: ${{ matrix.os }}
     name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:
@@ -25,7 +26,7 @@ jobs:
       - name: Cache pipenv dependencies
         uses: actions/cache@v1
         with:
-          path: .pipenv
+          path: $PIPENV_DIR
           key: python-${{ runner.OS }}-${{ hashFiles('**/Pipfile.lock') }}
           restore-keys: |
             python-${{ runner.OS }}-
