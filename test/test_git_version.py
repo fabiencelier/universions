@@ -1,5 +1,7 @@
 """Test the Git version parser."""
 
+from pathlib import Path
+
 import pytest
 
 from universions import Version
@@ -30,3 +32,9 @@ class TestGit(BasicMockedPopen):
         """Test that the correct version is returned."""
         self.popen.set_command("git --version", stdout=command)
         assert get_git_version() == version
+
+    def test_with_custom_path(self):
+        """Tests that if accepts a custom path to git binary."""
+        git_path = Path.home() / "super_git" / "git.bin"
+        self.popen.set_command(f"{git_path} --version", stdout=UNIX_GIT)
+        assert get_git_version(git_path=git_path) == Version(2, 23, 0)
