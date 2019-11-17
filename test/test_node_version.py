@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from universions import Version
-from universions.node import get_node_versions
+from universions.node import get_node_version
 
 from .mock_popen import BasicMockedPopen
 
@@ -31,11 +31,11 @@ class TestNode(BasicMockedPopen):
     def test_default_node_version(self, command: bytes, version: Version):
         """Test that the correct version is returned."""
         self.popen.set_command("node --version", stderr=command)
-        assert get_node_versions() == version
+        assert get_node_version() == version
 
     @pytest.mark.parametrize("command,version", VERSIONS)
     def test_default_node_version_with_path(self, command: bytes, version: Version):
         """Test that the correct version is returned."""
         path = str(Path.home() / "node" / "bin")
         self.popen.set_command(f"{path} --version", stderr=command)
-        assert get_node_versions(node_path=path) == version
+        assert get_node_version(node_path=path) == version

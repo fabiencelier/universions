@@ -27,3 +27,7 @@ class InvalidVersionFormatError(ValueError):
             super().__init__(full_message, caused_by)
         else:
             super().__init__(full_message)
+
+
+class NotFoundError(EnvironmentError):
+    """Error when a tool is not found."""

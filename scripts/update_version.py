@@ -3,9 +3,9 @@
 
 import datetime
 import re
-import subprocess
 from os import path
 from pathlib import Path
+from typing import Optional
 
 PROJECT_DIR = Path(path.abspath(path.dirname(__file__))).parent
 VERSION_FILE = path.join(PROJECT_DIR, "universions", "_version.py")
@@ -43,6 +43,8 @@ def get_dev_version() -> str:
     return version + date_part
 
 
-def update_version():
+def update_version(version: Optional[str]):
     """Update the version."""
-    set_version_number(get_current_version(), get_dev_version())
+    if version is None:
+        version = get_dev_version()
+    set_version_number(get_current_version(), version)

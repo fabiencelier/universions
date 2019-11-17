@@ -8,10 +8,8 @@ from universions._exec import exec_command
 from universions.version import Version, parse_semver
 
 
-def get_node_versions(
-    node_path: Optional[Union[Path, str]] = None
-) -> Optional[Version]:
-    """Get the Java versions.
+def get_node_version(node_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
+    """Get the Node version.
 
     Args:
         node_path: The path to the node to check. If not defined, it uses "node"

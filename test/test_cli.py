@@ -3,6 +3,7 @@
 from subprocess import check_output
 
 import universions
+from universions._version import VERSION as universions_version
 
 
 def test_cli_help():
@@ -27,3 +28,17 @@ def test_cli_universions_verbosity():
     assert str(output, encoding="utf-8").strip() == expected
     output = check_output(["universions", "universions", "-vv"])
     assert str(output, encoding="utf-8").strip() == expected
+
+
+def test_cli_all():
+    """Test the --all flag of the CLI."""
+    output = check_output(["universions", "--all"])
+    assert str(output, encoding="utf-8").startswith("Versions :")
+
+
+def test_cli_version():
+    """Test the --version and -V arguments."""
+    output = check_output(["universions", "--version"])
+    assert str(output, encoding="utf-8").strip() == universions_version
+    output = check_output(["universions", "-V"])
+    assert str(output, encoding="utf-8").strip() == universions_version
