@@ -48,6 +48,7 @@ In the command line :
 
 - [Java](https://universions.readthedocs.io/en/latest/tools/java.html)
 - [Node](https://universions.readthedocs.io/en/latest/tools/node.html)
+- [Npm](https://universions.readthedocs.io/en/latest/tools/npm.html)
 - [Pip](https://universions.readthedocs.io/en/latest/tools/pip.html)
 - [Python](https://universions.readthedocs.io/en/latest/tools/python.html)
 

@@ -21,14 +21,14 @@ VERSIONS = [
 class TestNpm(BasicMockedPopen):
     """Test the Npm version."""
 
-    @pytest.mark.parametrize("command,version", VERSIONS)
-    def test_default_npm_version(self, command: bytes, version: Version):
+    @pytest.mark.parametrize("output,version", VERSIONS)
+    def test_default_npm_version(self, output: bytes, version: Version):
         """Test that the correct version is returned."""
-        self.popen.set_command("npm --version", stderr=command)
+        self.popen.set_command("npm --version", stdout=output)
         assert get_npm_versions() == version
 
     def test_npm_version_with_path(self):
         """Test that the correct version is returned when specifying path."""
         path = str(Path.home() / "npm-here" / "bin" / "npm.bin")
-        self.popen.set_command(f"{path} --version", stderr=LINUX_OUT)
-        assert get_npm_versions(npm_path=path) == version
+        self.popen.set_command(f"{path} --version", stdout=LINUX_OUT)
+        assert get_npm_versions(npm_path=path) == Version(6, 4, 1)
