@@ -2,6 +2,7 @@
 dist
 universions.egg-info
 docs/build
+__pycache__
 
 # Javascript
 node_modules
@@ -9,3 +10,4 @@ node_modules
 # Editors
 .vscode
 .venv
+.theia

@@ -12,15 +12,18 @@ _REGEX = re.compile(
     r"""
       ^
       git\ version
-      \ (?P<version>[^ ]+)
-      (\ \(.+\))?
+      \ (?P<version>\d+\.\d+\.\d+)
+      (\.(?P<complement>[^ ]+))?
+      (\ \((?P<info>.+)\))?
       $
     """,
     re.VERBOSE,
 )
 
+ParsingInfo = (str, Optional[str], Optional[str])
 
-def _extract_version(output: str) -> str:
+
+def _extract_version(output: str) -> ParsingInfo:
     """Extracts the version from the command output
 
   Args:
@@ -33,7 +36,30 @@ def _extract_version(output: str) -> str:
     if match is None:
         raise InvalidVersionFormatError(output, "Unexpected Git output.")
 
-    return match.groupdict()["version"]
+    groups = match.groupdict()
+    return (groups["version"], groups["complement"], groups["info"])
+
+
+def create_version(info: ParsingInfo) -> Version:
+    """Transforms the parsing info into an actual version"""
+    version, complement, detail = info
+    base_version = parse_semver(version)
+
+    if complement and detail:
+        build = f"{complement} {detail}"
+    elif complement:
+        build = complement
+    elif detail:
+        build = detail
+    else:
+        build = None
+
+    if build is None:
+        return base_version
+
+    return Version(
+        base_version.major, base_version.minor, base_version.patch, None, build
+    )
 
 
 def get_git_version(git_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
@@ -49,4 +75,4 @@ def get_git_version(git_path: Optional[Union[Path, str]] = None) -> Optional[Ver
         git_path = "git"
     output = exec_command([git_path, "--version"])
     version_string = _extract_version(output)
-    return parse_semver(version_string, remove_initial_v=True)
+    return create_version(version_string)
