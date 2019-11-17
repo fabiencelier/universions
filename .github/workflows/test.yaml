@@ -13,10 +13,32 @@ jobs:
       matrix:
         python-version: ["3.6", "3.7", "3.8"]
         os: ["ubuntu-latest", "macOS-latest"] # add "windows-latest" when possible
+    env: 
+      # From https://stackoverflow.com/a/55310803/3252477 for pipenv
+      PIP_CACHE_DIR: .pipenv/pipcache
+      WORKON_HOME: .pipenv/venvs
     runs-on: ${{ matrix.os }}
     name: Testing - Python ${{ matrix.python-version }} - ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
+      # Setup the cache
+      - name: Cache pipenv dependencies
+        uses: actions/cache@v1
+        with:
+          path: .pipenv
+          key: python-${{ runner.OS }}-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            python-${{ runner.OS }}-
+            python-
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: nodejs-${{ runner.OS }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodejs-${{ runner.OS }}-
+            nodejs-
+      # Build and test the project
       - uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
