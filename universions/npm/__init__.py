@@ -2,10 +2,11 @@
 
 # NPM is simple as it immediately returns the version we need
 
-from typing import Optional, Union
 from pathlib import Path
-from universions import Version, parse_semver
+from typing import Optional, Union
+
 from universions._exec import exec_command
+from universions.version import Version, parse_semver
 
 
 def get_npm_versions(npm_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
