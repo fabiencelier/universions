@@ -46,6 +46,7 @@ In the command line :
 
 ## Languages and other tools supported
 
+- [Git](https://universions.readthedocs.io/en/latest/tools/git.html)
 - [Java](https://universions.readthedocs.io/en/latest/tools/java.html)
 - [Node](https://universions.readthedocs.io/en/latest/tools/node.html)
 - [Pip](https://universions.readthedocs.io/en/latest/tools/pip.html)

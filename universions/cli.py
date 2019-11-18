@@ -2,6 +2,7 @@
 
 import argparse
 
+from universions.git import get_git_version
 from universions.java import get_java_version
 from universions.node import get_node_version
 from universions.pip import get_pip_version
@@ -22,6 +23,7 @@ def get_self_version() -> Version:
 ISSUE_URL = "https://github.com/fabiencelier/universions/issues"
 
 TOOLS = {
+    "git": get_git_version,
     "java": get_java_version,
     "node": get_node_version,
     "pip": get_pip_version,
