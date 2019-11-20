@@ -1,6 +1,7 @@
 """Main file to call universions from the CLI."""
 
 import argparse
+from pathlib import Path
 
 from universions.git import get_git_version
 from universions.java import get_java_version
@@ -109,7 +110,12 @@ def main() -> int:
         parser.print_help()
         return 0
     get_version = TOOLS.get(tool_name)
-    version = get_version(args.path)
+    if args.path is not None:
+        tool_path = Path(args.path)
+        version = get_version(tool_path)
+    else:
+        version = get_version()
+
     print(print_version(version, args.verbosity))
 
     return 0
