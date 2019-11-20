@@ -1,6 +1,7 @@
 """Main file to call universions from the CLI."""
 
 import argparse
+from pathlib import Path
 
 from universions.git import get_git_version
 from universions.java import get_java_version
@@ -35,11 +36,15 @@ TOOLS = {
 def get_args_parser():
     """Get the arguments parser of the program."""
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+    tool_group = parser.add_argument_group()
+    tool_group.add_argument(
         "tool",
         help="select the tool whose version is wanted",
         nargs="?",
         choices=list(TOOLS.keys()),
+    )
+    tool_group.add_argument(
+        "-p", "--path", help="Sets the path to the tool to inspect", default=None
     )
     parser.add_argument(
         "-a", "--all", action="store_true", help="display all the tools version"
@@ -105,7 +110,12 @@ def main() -> int:
         parser.print_help()
         return 0
     get_version = TOOLS.get(tool_name)
-    version = get_version()
+    if args.path is not None:
+        tool_path = Path(args.path)
+        version = get_version(tool_path)
+    else:
+        version = get_version()
+
     print(print_version(version, args.verbosity))
 
     return 0
