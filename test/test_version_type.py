@@ -37,14 +37,3 @@ def test_full_version():
     assert version.patch == 0
     assert version.prerelease == "rc.5"
     assert version.build == "eg5f6d"
-
-
-def test_compare_version_with_major_minor():
-    version = Version(1, 0)
-    assert version > (0, 1)
-    assert version < (1, 1)
-    #  assert version == (1, 0)
-    assert version != (1, 0, 0)
-    assert version < (2,)
-    assert version > (0,)
-    assert version > (0, 1, 10, "rc2", "build-455")
