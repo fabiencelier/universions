@@ -1,5 +1,7 @@
 """Test the CLI."""
 
+import os
+from pathlib import Path
 from subprocess import check_output
 
 import universions
@@ -36,9 +38,35 @@ def test_cli_all():
     assert str(output, encoding="utf-8").startswith("Versions :")
 
 
+def test_cli_path():
+    """Tests that it is possible to pass a custom path to a tool binary."""
+    fake_node_path = Path(__file__).resolve().parent / "fake-node.sh"
+    output = check_output(["universions", "--path", fake_node_path, "node", "-vv"])
+    assert str(output, encoding="utf-8").strip() == "98.76.543"
+    short_output = check_output(["universions", "-p", fake_node_path, "node", "-vv"])
+    assert output == short_output
+
+
 def test_cli_version():
     """Test the --version and -V arguments."""
     output = check_output(["universions", "--version"])
     assert str(output, encoding="utf-8").strip() == universions_version
     output = check_output(["universions", "-V"])
     assert str(output, encoding="utf-8").strip() == universions_version
+
+
+def test_supported_tools():
+    """Test that the CLI returns an entry for all supported tools.
+    Because the tools may not be available on the platform, this
+    calls the CLI with option -a. At least, all languages will be listed."""
+    output = check_output(["universions", "--all"])
+    output = str(output, encoding="utf-8")
+
+    current_test_path = Path(__file__).resolve().parent
+    lib_path = current_test_path / ".." / "universions"
+    supported_tools = [
+        entry for entry in os.listdir(lib_path) if (lib_path / entry).is_dir()
+    ]
+
+    for tool in supported_tools:
+        assert f" - {tool} : " in output or f" - {tool}\n" in output
