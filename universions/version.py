@@ -1,19 +1,66 @@
 """Unique format for all the versions."""
 
 import re
+from functools import total_ordering
 from typing import NamedTuple, Optional
 
 from .error import InvalidVersionFormatError
 
 
-class Version(NamedTuple):
+def lt_version_number(a, b):
+    if a == b:
+        return None
+    if a is None:
+        return True
+    if b is None:
+        return False
+
+    return a < b
+
+
+COMPARE_ORDER = [lambda a: a.major, lambda a: a.minor, lambda a: a.patch]
+COMPARE_DETAILS = [lambda a: a.prerelease, lambda a: a.build]
+
+
+@total_ordering
+class Version:
     """Class containing all the version info."""
 
-    major: int
-    minor: Optional[int] = None
-    patch: Optional[int] = None
-    prerelease: Optional[str] = None
-    build: Optional[str] = None
+    def __init__(
+        self,
+        major: int,
+    minor: Optional[int] = None,
+    patch: Optional[int] = None,
+    prerelease: Optional[str] = None,
+    build: Optional[str] = None):
+        self.major = major
+        self.minor = minor or 0
+        self.patch = patch or 0
+        self.prerelease = prerelease
+        self.build = build
+
+    def __eq__(self, other):
+        if not isinstance(other, Version):
+            return NotImplemented
+
+        return self.major == other.major and self.minor == other.minor and self.patch == other.patch and self.prerelease == other.prerelease and self.build == other.build
+
+
+    def __lt__(self, other):
+        if not isinstance(other, Version):
+            return NotImplemented
+
+        for attribute in COMPARE_ORDER:
+            result = lt_version_number(attribute(self) or 0, attribute(other) or 0)
+            if result is not None:
+                return result
+
+        for attribute in COMPARE_DETAILS:
+            result = lt_version_number(attribute(self), attribute(other))
+            if result is not None:
+                return not result
+
+        return False
 
 
 _REGEX = re.compile(

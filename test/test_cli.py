@@ -65,7 +65,7 @@ def test_supported_tools():
     current_test_path = Path(__file__).resolve().parent
     lib_path = current_test_path / ".." / "universions"
     supported_tools = [
-        entry for entry in os.listdir(lib_path) if (lib_path / entry).is_dir()
+        entry for entry in os.listdir(lib_path) if (lib_path / entry).is_dir() and not entry.startswith("__")
     ]
 
     for tool in supported_tools:
