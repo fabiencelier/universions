@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from universions import Version
-from universions.npm import get_npm_versions
+from universions.npm import get_npm_version
 
 from .mock_popen import BasicMockedPopen
 
@@ -25,10 +25,10 @@ class TestNpm(BasicMockedPopen):
     def test_default_npm_version(self, output: bytes, version: Version):
         """Test that the correct version is returned."""
         self.popen.set_command("npm --version", stdout=output)
-        assert get_npm_versions() == version
+        assert get_npm_version() == version
 
     def test_npm_version_with_path(self):
         """Test that the correct version is returned when specifying path."""
         path = str(Path.home() / "npm-here" / "bin" / "npm.bin")
         self.popen.set_command(f"{path} --version", stdout=LINUX_OUT)
-        assert get_npm_versions(npm_path=path) == Version(6, 4, 1)
+        assert get_npm_version(npm_path=path) == Version(6, 4, 1)

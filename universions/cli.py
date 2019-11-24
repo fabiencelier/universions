@@ -4,7 +4,7 @@ import argparse
 
 from universions.java import get_java_version
 from universions.node import get_node_version
-from universions.npm import get_npm_versions
+from universions.npm import get_npm_version
 from universions.pip import get_pip_version
 from universions.python import get_python_version
 from universions.version import parse_semver
@@ -25,7 +25,7 @@ ISSUE_URL = "https://github.com/fabiencelier/universions/issues"
 TOOLS = {
     "java": get_java_version,
     "node": get_node_version,
-    "npm": get_npm_versions,
+    "npm": get_npm_version,
     "pip": get_pip_version,
     "python": get_python_version,
     "universions": get_self_version,

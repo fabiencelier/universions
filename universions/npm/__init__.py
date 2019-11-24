@@ -9,7 +9,7 @@ from universions._exec import exec_command
 from universions.version import Version, parse_semver
 
 
-def get_npm_versions(npm_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
+def get_npm_version(npm_path: Optional[Union[Path, str]] = None) -> Optional[Version]:
     """Get the NPM version.
 
     Args:
