@@ -15,7 +15,7 @@ def get_npm_version(npm_path: Optional[Union[Path, str]] = None) -> Optional[Ver
     Args:
         npm_path: The path to `npm` to check. If not defined, it uses "npm"
     Returns:
-        The Node version.
+        The NPM version.
 
     """
     if npm_path is None:
