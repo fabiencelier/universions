@@ -25,13 +25,17 @@ def lt_version_option(a, b):
 
 
 def option_rank(version):
-    return (10 if version.prerelease is None else 0) + (
-        1 if version.build is None else 0
-    )
+    if version.prerelease is None and version.build is None:
+        return 100
+    if version.prerelease is not None and version.build is None:
+        return 50
+    if version.prerelease is not None and version.build is not None:
+        return 10
+    if version.prerelease is None and version.build is not None:
+        return 1
 
 
-COMPARE_ORDER = [lambda a: a.major, lambda a: a.minor, lambda a: a.patch, option_rank]
-COMPARE_DETAILS = [lambda a: a.prerelease, lambda a: a.build]
+COMPARE_ORDER = [lambda a: a.major, lambda a: a.minor, lambda a: a.patch, option_rank, lambda a: a.prerelease, lambda a: a.build]
 
 
 @total_ordering
@@ -71,12 +75,7 @@ class Version:
         for attribute in COMPARE_ORDER:
             result = lt_version_number(attribute(self) or 0, attribute(other) or 0)
             if result is not None:
-                return result
-
-        for attribute in COMPARE_DETAILS:
-            result = lt_version_option(attribute(self), attribute(other))
-            if result is not None:
-                return result
+                return result            
 
         return False
 
