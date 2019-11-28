@@ -63,7 +63,7 @@ JAVA_14_PRE = (
 
 JAVA_PARAMETERS = [
     pytest.param(JAVA_5, "1.5.0_29", Version(1, 5, 29)),
-    pytest.param(JAVA_6, "1.6.0-119", Version(1, 6, 0, "119")),  # wrong parsing here
+    pytest.param(JAVA_6, "1.6.0_119", Version(1, 6, 119)),  # wrong parsing here
     pytest.param(JAVA_7, "1.7.0_55", Version(1, 7, 55)),
     pytest.param(JAVA_8, "1.8.0_151", Version(1, 8, 151)),
     pytest.param(JAVA_11, "11.0.5", Version(11, 0, 5)),

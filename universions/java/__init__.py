@@ -117,4 +117,5 @@ def _parse_version_string(cmd_result: str) -> str:
         line for line in split_lines if len(line) > 0 and line[1] == "version"
     ][0]
     version_string = version_line[2].replace('"', "")
+    version_string = re.sub(r"-(\d)", r"_\1", version_string)
     return version_string
